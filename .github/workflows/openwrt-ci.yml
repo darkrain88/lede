@@ -117,7 +117,7 @@ jobs:
         # 设置固件大小:
         cat >> .config <<EOF
         CONFIG_TARGET_KERNEL_PARTSIZE=32
-        CONFIG_TARGET_ROOTFS_PARTSIZE=128
+        CONFIG_TARGET_ROOTFS_PARTSIZE=512
         EOF
         
         # 固件压缩:
@@ -137,13 +137,13 @@ jobs:
         EOF
         
         # USB3.0支持:
-        cat >> .config <<EOF
-        CONFIG_PACKAGE_kmod-usb-ohci=y
-        CONFIG_PACKAGE_kmod-usb-ohci-pci=y
-        CONFIG_PACKAGE_kmod-usb2=y
-        CONFIG_PACKAGE_kmod-usb2-pci=y
-        CONFIG_PACKAGE_kmod-usb3=y
-        EOF
+        # cat >> .config <<EOF
+        # CONFIG_PACKAGE_kmod-usb-ohci=y
+        # CONFIG_PACKAGE_kmod-usb-ohci-pci=y
+        # CONFIG_PACKAGE_kmod-usb2=y
+        # CONFIG_PACKAGE_kmod-usb2-pci=y
+        # CONFIG_PACKAGE_kmod-usb3=y
+        # EOF
         
         # 多文件系统支持:
         cat >> .config <<EOF
@@ -157,29 +157,33 @@ jobs:
         
         # LuCI插件选择:
         cat >> .config <<EOF
-        CONFIG_PACKAGE_luci-app-smartdns=y
-        CONFIG_PACKAGE_luci-app-openclash=y
+        CONFIG_PACKAGE_luci-app-smartdns=n
+        CONFIG_PACKAGE_luci-app-openclash=n
         CONFIG_PACKAGE_luci-app-adbyby-plus=y
         CONFIG_PACKAGE_luci-app-advanced-reboot=y
         CONFIG_PACKAGE_luci-app-softethervpn=y
-        CONFIG_PACKAGE_luci-app-frpc=y
-        CONFIG_PACKAGE_luci-app-hd-idle=y
+        CONFIG_PACKAGE_luci-app-frpc=n
+        CONFIG_PACKAGE_luci-app-hd-idle=n
         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server=y
         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
+        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
         CONFIG_PACKAGE_luci-app-ttyd=y
-        CONFIG_PACKAGE_luci-app-v2ray-server=y
+        CONFIG_PACKAGE_luci-app-v2ray-server=n
         CONFIG_PACKAGE_luci-app-fileassistant=y
+        CONFIG_PACKAGE_luci-app-docker=y
+        CONFIG_PACKAGE_luci-app-openvpn-serve=y
+        CONFIG_PACKAGE_luci-app-webadmin=y
         EOF
         
         # LuCI主题:
-        # cat >> .config <<EOF
-        # CONFIG_PACKAGE_luci-theme-argon=y
-        # CONFIG_PACKAGE_luci-theme-rosy=y
-        # CONFIG_PACKAGE_luci-theme-atmaterial=y
-        # EOF
+        cat >> .config <<EOF
+        CONFIG_PACKAGE_luci-theme-argon=y
+        CONFIG_PACKAGE_luci-theme-rosy=y
+        CONFIG_PACKAGE_luci-theme-atmaterial=y
+        EOF
         
         # 常用软件包:
         cat >> .config <<EOF
@@ -190,8 +194,8 @@ jobs:
         CONFIG_PACKAGE_tree=y
         CONFIG_PACKAGE_vim-fuller=y
         CONFIG_PACKAGE_wget=y
-        CONFIG_PACKAGE_iperf=y
-        CONFIG_PACKAGE_iperf3=y
+        CONFIG_PACKAGE_iperf=n
+        CONFIG_PACKAGE_iperf3=n
         EOF
         
         # 取消编译VMware镜像以及镜像填充 (不要删除被缩进的注释符号):
@@ -215,7 +219,7 @@ jobs:
         EOF
         sed -i 's/^[ \t]*//g' ./.config
         echo '修改网关地址'
-        sed -i 's/192.168.1.1/10.10.10.10/g' package/base-files/files/bin/config_generate
+        sed -i 's/192.168.1.1/192.168.100.110/g' package/base-files/files/bin/config_generate
         make defconfig
 
     - name: 下载编译所需源码
