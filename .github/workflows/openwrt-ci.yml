@@ -58,8 +58,8 @@ jobs:
         REPO_BRANCH: master
       run: git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
 
-    - name: SSH connection to Actions
-      uses: P3TERX/debugger-action@master
+    #- name: SSH connection to Actions
+    # uses: P3TERX/debugger-action@master
 
     - name: 更新 feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -204,8 +204,7 @@ jobs:
         # # CONFIG_TARGET_IMAGES_PAD is not set
         # # CONFIG_VMDK_IMAGES is not set
         # CONFIG_PACKAGE_coremark is not set
-        # CONFIG_DEFAULT_coremark is not set
-        # CONFIG_PACKAGE_luci-app-docker is not set
+        # CONFIG_DEFAULT_coremark is not set     
         # CONFIG_PACKAGE_luci-app-zerotier is not set
         # CONFIG_PACKAGE_luci-app-wifischedule is not set
         # CONFIG_PACKAGE_luci-app-vsftpd is not set
@@ -214,8 +213,6 @@ jobs:
         # CONFIG_PACKAGE_luci-app-transmission is not set
         # CONFIG_PACKAGE_luci-app-xlnetacc is not set
         # CONFIG_PACKAGE_luci-app-sqm is not set
-        # CONFIG_PACKAGE_luci-app-openvpn is not set
-        # CONFIG_PACKAGE_luci-app-openvpn-server is not set
         # CONFIG_PACKAGE_luci-app-qbittorrent is not set
         EOF
         sed -i 's/^[ \t]*//g' ./.config
